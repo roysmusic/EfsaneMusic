@@ -27,7 +27,7 @@ def bul(client, message):
 
     query = "".join(" " + str(i) for i in message.command[1:])
     print(query)
-    m = message.reply("🔎 Arıyorum...")
+    m = message.reply("🔎 Şarkı aranıyor..")
     ydl_opts = {"format": "bestaudio[ext=m4a]"}
     try:
         results = YoutubeSearch(query, max_results=5).to_dict()
@@ -45,11 +45,11 @@ def bul(client, message):
 
     except Exception as e:
         m.edit(
-            "❌ Hiçbir şey bulamadım. Pardon.\n\nBaşka bir anahtar kelime deneyin veya belki düzgün hecele."
+            "😕 Hiçbir şey bulamadım. Üzgünüm.\n\nBaşka bir anahtar kelime deneyin veya belki düzgün hecele."
         )
         print(str(e))
         return
-    m.edit("`Şarkı indiriliyor, lütfen bekleyin...⏱`")
+    m.edit("`⏳ Şarkı bulundu, indiriliyor lütfen bekleyin..`")
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(link, download=False)
@@ -70,7 +70,7 @@ def bul(client, message):
         )
         m.delete()
     except Exception as e:
-        m.edit("❌ Error")
+        m.edit("❌ Hata")
         print(e)
 
     try:
